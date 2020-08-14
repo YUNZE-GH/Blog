@@ -23,11 +23,13 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "com.gh.blog.dao.monitor", sqlSessionFactoryRef = "monitorSqlSessionFactory")
 public class DataSourceConfig_Monitor {
+
     @Bean(name = "monitorDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.monitor")
     public DataSource getDateSource2() {
         return DataSourceBuilder.create().build();
     }
+
     @Bean(name = "monitorSqlSessionFactory")
     public SqlSessionFactory monitorSqlSessionFactory(@Qualifier("monitorDataSource") DataSource datasource)
             throws Exception {
@@ -37,6 +39,7 @@ public class DataSourceConfig_Monitor {
                 new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/monitor/*.xml"));
         return bean.getObject();
     }
+
     @Bean("monitorSqlSessionTemplate")
     public SqlSessionTemplate monitorSqlSessionTemplate(
             @Qualifier("monitorSqlSessionFactory") SqlSessionFactory sessionfactory) {

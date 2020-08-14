@@ -24,6 +24,7 @@ import javax.sql.DataSource;
 // 配置mybatis的接口类放的地方
 @MapperScan(basePackages = "com.gh.blog.dao.blog", sqlSessionFactoryRef = "blogSqlSessionFactory")
 public class DataSourceConfig_Blog {
+
     // 将这个对象放入Spring容器中
     @Bean(name = "blogDataSource")
     // 表示这个数据源是默认数据源
@@ -34,6 +35,7 @@ public class DataSourceConfig_Blog {
     public DataSource getDateSource1() {
         return DataSourceBuilder.create().build();
     }
+
     @Bean(name = "blogSqlSessionFactory")
     // 表示这个数据源是默认数据源
     @Primary
@@ -47,6 +49,7 @@ public class DataSourceConfig_Blog {
                 new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/blog/*.xml"));
         return bean.getObject();
     }
+
     @Bean("blogSqlSessionTemplate")
     // 表示这个数据源是默认数据源
     @Primary
