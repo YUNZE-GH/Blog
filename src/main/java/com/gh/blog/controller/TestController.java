@@ -7,9 +7,7 @@ import com.gh.blog.service.LoginmonitorService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +43,13 @@ public class TestController {
         List<Loginmonitor> list = loginmonitorService.getAll();
         System.err.println(list.toString());
         return list.toString();
+    }
+
+    @PostMapping(value = "/add")
+    public String add(@RequestBody List<String> list) {
+        for (String s : list) {
+            System.err.println(s);
+        }
+        return "SUCCESS!";
     }
 }
