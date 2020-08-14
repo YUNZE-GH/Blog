@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface LoginmonitorService {
     List<Loginmonitor> getAll();
+
+    void addList(List<Loginmonitor> list);
 }

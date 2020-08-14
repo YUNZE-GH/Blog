@@ -22,4 +22,9 @@ public class LoginmonitorImpl implements LoginmonitorService {
     public List<Loginmonitor> getAll() {
         return dao.getAll();
     }
+
+    @Override
+    public void addList(List<Loginmonitor> list) {
+        dao.addList(list);
+    }
 }

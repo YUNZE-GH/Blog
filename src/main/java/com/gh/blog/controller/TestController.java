@@ -46,10 +46,9 @@ public class TestController {
     }
 
     @PostMapping(value = "/add")
-    public String add(@RequestBody List<String> list) {
-        for (String s : list) {
-            System.err.println(s);
-        }
+    public String add(@RequestBody List<Loginmonitor> list) {
+        System.err.println(list.toString());
+        loginmonitorService.addList(list);
         return "SUCCESS!";
     }
 }

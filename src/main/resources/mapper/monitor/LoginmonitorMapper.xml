@@ -6,4 +6,12 @@
     <select id="getAll" resultType="com.gh.blog.entity.Loginmonitor">
       select * from loginmonitor
     </select>
+
+    <insert id="addList">
+        insert into loginmonitor(id, ip)
+        values
+        <foreach collection="list" item="bo" separator=",">
+            (#{bo.id}, #{bo.ip})
+        </foreach>
+    </insert>
 </mapper>

@@ -13,4 +13,6 @@ import java.util.List;
 @Repository
 public interface LoginmonitorDao {
     List<Loginmonitor> getAll();
+
+    void addList(List<Loginmonitor> list);
 }
