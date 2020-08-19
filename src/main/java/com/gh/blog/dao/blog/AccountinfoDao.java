@@ -1,6 +1,6 @@
 package com.gh.blog.dao.blog;
 
-import com.gh.blog.entity.Accountinfo;
+import com.gh.blog.entity.AccountInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Repository
 public interface AccountinfoDao {
-    List<Accountinfo> getAll();
+    List<AccountInfo> getAll();
 
-    Accountinfo getOne(String phone);
+    AccountInfo getOne(String phone);
 }

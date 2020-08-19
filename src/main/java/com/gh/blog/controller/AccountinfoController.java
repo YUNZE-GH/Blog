@@ -1,6 +1,6 @@
 package com.gh.blog.controller;
 
-import com.gh.blog.entity.Accountinfo;
+import com.gh.blog.entity.AccountInfo;
 import com.gh.blog.service.AccountinfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -11,10 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,7 +39,7 @@ public class AccountinfoController {
     @ApiImplicitParam(name = "sid", value = "SessionId", required = true,paramType = "path", dataType = "String")
     @GetMapping(value = "/getAccountInfoBySid/{sid}")
     public String getAccountInfoBySid(@PathVariable(required = true) String sid) {
-        Accountinfo bo = service.getOne(sid);
+        AccountInfo bo = service.getOne(sid);
         JSONObject json = new JSONObject();
         json.put("status", "200");
         if (bo == null) {
@@ -73,7 +70,6 @@ public class AccountinfoController {
             @PathVariable(required = true) String phone,
             @PathVariable(required = true) String password,
             HttpServletRequest request) {
-        log.error("===============================>loginCheck");
         String uuid = service.getOne(phone, password);
         JSONObject json = new JSONObject();
         json.put("status", "200");
@@ -91,10 +87,15 @@ public class AccountinfoController {
         }
     }
 
-    @RequestMapping(value = "sid")
-    public String getSid(HttpServletRequest request){
-        String sid = request.getSession().getId();
-        return sid;
+    @ApiOperation(value = "RegisterCheck",notes = "使用手机号和验证码进行账号注册")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "bo", value = "用户名、手机号、密码", required = true,paramType = "query", dataType = "AccountInfo"),
+            @ApiImplicitParam(name = "code", value = "验证码", required = true,paramType = "path", dataType = "String")
+    })
+    @PostMapping(value = "/RegisterCheck/{code}")
+    public String getSid(@RequestBody AccountInfo bo, @PathVariable(required = true) String code){
+        log.info(bo.toString());
+        return "";
     }
 
 }

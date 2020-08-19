@@ -1,6 +1,6 @@
 package com.gh.blog.service;
 
-import com.gh.blog.entity.Accountinfo;
+import com.gh.blog.entity.AccountInfo;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import java.util.List;
  * @date 2020/8/12 10:57
  */
 public interface AccountinfoService {
-    List<Accountinfo> getAll();
+    List<AccountInfo> getAll();
 
-    Accountinfo getOne(String sid);
+    AccountInfo getOne(String sid);
 
     String getOne(String phone, String password);
 }

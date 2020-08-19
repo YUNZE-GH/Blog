@@ -1,7 +1,7 @@
 package com.gh.blog.impl;
 
 import com.gh.blog.dao.blog.AccountinfoDao;
-import com.gh.blog.entity.Accountinfo;
+import com.gh.blog.entity.AccountInfo;
 import com.gh.blog.service.AccountinfoService;
 import com.google.gson.Gson;
 import net.sf.json.JSONObject;
@@ -31,16 +31,16 @@ public class AccountinfoImpl implements AccountinfoService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public List<Accountinfo> getAll() {
+    public List<AccountInfo> getAll() {
         return null;
     }
 
     @Override
-    public Accountinfo getOne(String sid) {
+    public AccountInfo getOne(String sid) {
         ValueOperations operations = redisTemplate.opsForValue();
         if (redisTemplate.hasKey(sid)) {
             String json = (String) operations.get(sid);
-            Accountinfo bo = new Gson().fromJson(json, Accountinfo.class);
+            AccountInfo bo = new Gson().fromJson(json, AccountInfo.class);
             log.error("=====================>取缓存数据");
             bo.setPassword(null);
             return bo;
@@ -50,7 +50,7 @@ public class AccountinfoImpl implements AccountinfoService {
 
     @Override
     public String getOne(String phone, String password) {
-        Accountinfo bo = dao.getOne(phone);
+        AccountInfo bo = dao.getOne(phone);
         if (StringUtils.isEmpty(bo.getId()) && StringUtils.isEmpty(password)) {
             return null;
         } else if (bo.getPassword().equals(password)){

@@ -3,7 +3,7 @@ package com.gh.blog.entity;
 
 import java.io.Serializable;
 
-public class Accountinfo implements Serializable {
+public class AccountInfo implements Serializable {
 
     private long id;
     private String oid;
