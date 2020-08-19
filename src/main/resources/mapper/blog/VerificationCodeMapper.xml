@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gh.blog.dao.blog.VerificationCodeDao">
+    <!-- 新增记录 -->
+    <insert id="addOneInfo" parameterType="com.gh.blog.entity.VerificationCode">
+        insert into verificationcode (OID, PHONE, EMAIL, VERIFICATION, CREATETIME, BIZID, CODE, MESSAGE, REQUESTID)
+        value (#{oid}, #{phone}, #{email}, #{verification}, #{createtime}, #{bizid}, #{code}, #{message}, #{requestid})
+    </insert>
+
+<!--    <insert id="addOneInfo" parameterType="com.gh.blog.entity.VerificationCode">
+        insert into verificationcode (OID, PHONE) values (#{oid}, #{phone})
+    </insert>-->
+</mapper>
