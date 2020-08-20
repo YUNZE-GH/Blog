@@ -11,10 +11,12 @@ import java.util.List;
  * @date 2020/8/12 10:57
  */
 @Repository
-public interface AccountinfoDao {
+public interface AccountInfoDao {
     List<AccountInfo> getAll();
 
     AccountInfo getOne(String phone);
 
     void registerOneAccountInfo(AccountInfo bo);
+
+    int uniqueCheck(AccountInfo bo);
 }

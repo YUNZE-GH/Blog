@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
         <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gh.blog.dao.blog.AccountinfoDao">
+<mapper namespace="com.gh.blog.dao.blog.AccountInfoDao">
 
     <!-- 查询信息 -->
     <select id="getOne" parameterType="java.lang.String" resultType="com.gh.blog.entity.AccountInfo">
         select * from accountinfo where PHONE = #{phone} limit 1
     </select>
 
+    <!-- 注册账号 -->
     <insert id="registerOneAccountInfo" parameterType="com.gh.blog.entity.AccountInfo">
         insert into accountinfo (OID, USERNAME, PHONE, PASSWORD, LOCKFLAG, FAILURENUM, CREATETIME, UPDATETIME, ACCOUNT_STATE)
         values (#{oid}, #{username}, #{phone}, #{password}, 0, 0, #{createtime}, #{updatetime}, 0)
     </insert>
+    
+    <!-- 校验账号是否已经注册 -->
+    <select id="uniqueCheck" parameterType="com.gh.blog.entity.AccountInfo" resultType="int">
+        select count(*) from accountinfo where 1=1
+        <if test="phone != null and phone != ''">
+            and PHONE = #{phone}
+        </if>
+    </select>
 </mapper>

@@ -1,8 +1,8 @@
 package com.gh.blog.impl;
 
-import com.gh.blog.dao.blog.AccountinfoDao;
+import com.gh.blog.dao.blog.AccountInfoDao;
 import com.gh.blog.entity.AccountInfo;
-import com.gh.blog.service.AccountinfoService;
+import com.gh.blog.service.AccountInfoService;
 import com.gh.blog.utils.PublicUtils;
 import com.google.gson.Gson;
 import net.sf.json.JSONObject;
@@ -25,10 +25,10 @@ import java.util.UUID;
  * @date 2020/8/17 13:51
  */
 @Service
-public class AccountinfoImpl implements AccountinfoService {
+public class AccountInfoImpl implements AccountInfoService {
     private Log log = LogFactory.getLog(this.getClass().getName());
     @Autowired
-    private AccountinfoDao dao;
+    private AccountInfoDao dao;
 
     @Autowired
     private PublicUtils publicUtils;

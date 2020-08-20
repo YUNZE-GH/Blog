@@ -1,7 +1,7 @@
 package com.gh.blog.controller;
 
 import com.gh.blog.entity.AccountInfo;
-import com.gh.blog.service.AccountinfoService;
+import com.gh.blog.service.AccountInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * @author gaohan
@@ -29,7 +28,7 @@ public class AccountinfoController {
     private Log log = LogFactory.getLog(this.getClass().getName());
 
     @Autowired
-    private AccountinfoService service;
+    private AccountInfoService service;
 
     /**
      * 使用SessionId查询单条账号信息信息

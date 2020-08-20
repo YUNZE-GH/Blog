@@ -11,7 +11,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2020/8/12 10:57
  */
-public interface AccountinfoService {
+public interface AccountInfoService {
     List<AccountInfo> getAll();
 
     AccountInfo getOne(String sid);
