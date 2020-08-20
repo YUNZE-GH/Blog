@@ -1,8 +1,10 @@
 package com.gh.blog.service;
 
 import com.gh.blog.entity.AccountInfo;
+import net.sf.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author gaohan
@@ -15,4 +17,6 @@ public interface AccountinfoService {
     AccountInfo getOne(String sid);
 
     String getOne(String phone, String password);
+
+    String registerCheck(JSONObject json);
 }

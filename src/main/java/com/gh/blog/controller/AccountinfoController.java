@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author gaohan
@@ -89,13 +90,12 @@ public class AccountinfoController {
 
     @ApiOperation(value = "RegisterCheck",notes = "使用手机号和验证码进行账号注册")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "bo", value = "用户名、手机号、密码", required = true,paramType = "query", dataType = "AccountInfo"),
-            @ApiImplicitParam(name = "code", value = "验证码", required = true,paramType = "path", dataType = "String")
+            @ApiImplicitParam(name = "bo", value = "用户名、手机号、密码、验证码", required = true,paramType = "query", dataType = "JSONObject"),
     })
-    @PostMapping(value = "/RegisterCheck/{code}")
-    public String getSid(@RequestBody AccountInfo bo, @PathVariable(required = true) String code){
-        log.info(bo.toString());
-        return "";
+    @PostMapping(value = "/RegisterCheck")
+    public String getSid(@RequestBody JSONObject json){
+        String result = service.registerCheck(json);
+        return result;
     }
 
 }

@@ -6,4 +6,9 @@
     <select id="getOne" parameterType="java.lang.String" resultType="com.gh.blog.entity.AccountInfo">
         select * from accountinfo where PHONE = #{phone} limit 1
     </select>
+
+    <insert id="registerOneAccountInfo" parameterType="com.gh.blog.entity.AccountInfo">
+        insert into accountinfo (OID, USERNAME, PHONE, PASSWORD, LOCKFLAG, FAILURENUM, CREATETIME, UPDATETIME, ACCOUNT_STATE)
+        values (#{oid}, #{username}, #{phone}, #{password}, 0, 0, #{createtime}, #{updatetime}, 0)
+    </insert>
 </mapper>

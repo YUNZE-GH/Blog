@@ -12,9 +12,16 @@ import java.util.regex.Pattern;
 @Component
 public class PublicUtils {
 
-    public boolean validateMobilePhone(String phone) {
+    public static void main(String[] args) {
+        PublicUtils p = new PublicUtils();
+        Object s = "15346646668";
+        System.err.println(p.validateMobilePhone(s.toString()));
+    }
+
+    public boolean validateMobilePhone(Object phone) {
+        String str = phone.toString();
         Pattern pattern = Pattern.compile("^[1]\\d{10}$");
-        return pattern.matcher(phone).matches();
+        return pattern.matcher(str).matches();
     }
 
     public boolean isNotEmpty(Object obj) {

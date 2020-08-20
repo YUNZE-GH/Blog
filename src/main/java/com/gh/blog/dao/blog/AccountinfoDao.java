@@ -15,4 +15,6 @@ public interface AccountinfoDao {
     List<AccountInfo> getAll();
 
     AccountInfo getOne(String phone);
+
+    void registerOneAccountInfo(AccountInfo bo);
 }
