@@ -47,7 +47,6 @@ public class VerificationCodeImpl implements VerificationCodeService {
 
     /**
      * 发送账号注册短信验证码，并将回执存库
-     *
      * @param bo
      * @param registerSMSTemplate
      * @return
@@ -65,6 +64,10 @@ public class VerificationCodeImpl implements VerificationCodeService {
             json.put("success", false);
             json.put("message", "请输入正确手机号码！");
             return json.toString();
+        } else if (redisTemplate.hasKey(phone)) {
+            json.put("success", false);
+            json.put("message", "请不要连续发送验证码！");
+            return json.toString();
         } else {
             VerificationCode object = new VerificationCode();
             int verificationCode = new Random().nextInt(999999) + 100000;
@@ -76,7 +79,7 @@ public class VerificationCodeImpl implements VerificationCodeService {
                 // 将验证码和回执存库
                 object.setBizid(result.getString("BizId"));
                 // 验证码存缓存，号码为key，验证码为value，10分钟过期
-                redisTemplate.opsForValue().set(phone, String.valueOf(verificationCode), 60 * 10, TimeUnit.SECONDS);
+                redisTemplate.opsForValue().set(phone, String.valueOf(verificationCode), 60, TimeUnit.SECONDS);
                 json.put("success", true);
                 json.put("message", message);
             }
