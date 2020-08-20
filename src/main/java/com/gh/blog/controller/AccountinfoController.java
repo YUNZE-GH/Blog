@@ -87,9 +87,10 @@ public class AccountinfoController {
         }
     }
 
-    @ApiOperation(value = "RegisterCheck",notes = "使用手机号和验证码进行账号注册")
+    @ApiOperation(value = "RegisterCheck",notes = "使用手机号和验证码进行校验及账号注册")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "bo", value = "用户名、手机号、密码、验证码", required = true,paramType = "query", dataType = "JSONObject"),
+            @ApiImplicitParam(name = "json", value = "{\"username\":\"昵称\",\"phone\":\"手机号\",\"password\":\"密码\",\"code\":\"验证码\"}",
+                    required = true,paramType = "body", dataType = "JSON"),
     })
     @PostMapping(value = "/RegisterCheck")
     public String getSid(@RequestBody JSONObject json){
