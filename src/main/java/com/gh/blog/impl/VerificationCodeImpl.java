@@ -92,7 +92,7 @@ public class VerificationCodeImpl implements VerificationCodeService {
 
             log.info(object.toString());
             dao.addOneInfo(object);
-            json.put("success", false);
+            json.put("success", true);
             json.put("message", message);
             return json.toString();
         }
