@@ -1,6 +1,6 @@
 package com.gh.blog.impl;
 
-import com.gh.blog.dao.blog.AccountinfoDao;
+import com.gh.blog.dao.blog.AccountInfoDao;
 import com.gh.blog.dao.blog.VerificationCodeDao;
 import com.gh.blog.entity.AccountInfo;
 import com.gh.blog.entity.VerificationCode;
@@ -34,7 +34,7 @@ public class VerificationCodeImpl implements VerificationCodeService {
     private VerificationCodeDao dao;
 
     @Autowired
-    private AccountinfoDao accountinfoDao;
+    private AccountInfoDao accountinfoDao;
 
     @Autowired
     private PublicUtils publicUtils;
@@ -79,16 +79,17 @@ public class VerificationCodeImpl implements VerificationCodeService {
             return json.toString();
         } else {
             VerificationCode object = new VerificationCode();
-            int verificationCode = new Random().nextInt(999999) + 100000;
-            String message = smsSending.sendSMS(phone, registerSMSTemplate, String.valueOf(verificationCode));
+            // 生成1-999999之间的随机数,进行6位数补全
+            String verificationCode = String.format("%06d" ,(int) (Math.random() * 999999 + 1));
+            String message = smsSending.sendSMS(phone, registerSMSTemplate, verificationCode);
             log.info("==========>信息回执：" + message);
             JSONObject result = JSONObject.fromObject(message);
             Object code = result.get("Code");
             if (publicUtils.isNotEmpty(code) && code.toString().equals("OK")) {
                 // 将验证码和回执存库
                 object.setBizid(result.getString("BizId"));
-                // 验证码存缓存，号码为key，验证码为value，10分钟过期
-                redisTemplate.opsForValue().set(phone, String.valueOf(verificationCode), 60, TimeUnit.SECONDS);
+                // 验证码存缓存，号码为key，验证码为value，60秒过期
+                redisTemplate.opsForValue().set(phone, verificationCode, 60, TimeUnit.SECONDS);
                 json.put("success", true);
                 json.put("message", message);
             }
@@ -100,7 +101,7 @@ public class VerificationCodeImpl implements VerificationCodeService {
             object.setRequestid(result.getString("RequestId"));
             object.setMessage(result.getString("Message"));
             object.setEmail("");
-            object.setVerification(String.valueOf(verificationCode));
+            object.setVerification(verificationCode);
 
             log.info(object.toString());
             dao.addOneInfo(object);

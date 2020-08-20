@@ -39,7 +39,7 @@ public class AliCloud_SMS_Sending {
      * @param code     验证码
      * @return
      */
-    public String sendSMS(String phone, String template, String code/*, String accessKeyId, String accessKeySecret*/) {
+    public String sendSMS(String phone, String template, String code) {
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
         IAcsClient client = new DefaultAcsClient(profile);
 
