@@ -17,7 +17,6 @@ import org.springframework.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -129,5 +128,4 @@ public class AccountinfoImpl implements AccountinfoService {
         json.put("message", "请重新获取验证码！");
         return json.toString();
     }
-
 }
