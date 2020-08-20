@@ -1,6 +1,8 @@
 package com.gh.blog.impl;
 
+import com.gh.blog.dao.blog.AccountinfoDao;
 import com.gh.blog.dao.blog.VerificationCodeDao;
+import com.gh.blog.entity.AccountInfo;
 import com.gh.blog.entity.VerificationCode;
 import com.gh.blog.service.VerificationCodeService;
 import com.gh.blog.utils.AliCloud_SMS_Sending;
@@ -30,6 +32,9 @@ public class VerificationCodeImpl implements VerificationCodeService {
 
     @Autowired
     private VerificationCodeDao dao;
+
+    @Autowired
+    private AccountinfoDao accountinfoDao;
 
     @Autowired
     private PublicUtils publicUtils;
@@ -68,6 +73,10 @@ public class VerificationCodeImpl implements VerificationCodeService {
             json.put("success", false);
             json.put("message", "请不要连续发送验证码！");
             return json.toString();
+        } else if (!phoneUniqueCheck(phone)) {
+            json.put("success", false);
+            json.put("message", "该手机号已经注册账号！");
+            return json.toString();
         } else {
             VerificationCode object = new VerificationCode();
             int verificationCode = new Random().nextInt(999999) + 100000;
@@ -99,5 +108,20 @@ public class VerificationCodeImpl implements VerificationCodeService {
             json.put("message", message);
             return json.toString();
         }
+    }
+
+    /**
+     * 校验该手机号是否已经注册
+     * @param phone
+     * @return
+     */
+    public boolean phoneUniqueCheck(String phone) {
+        AccountInfo bo = new AccountInfo();
+        bo.setPhone(phone);
+        int result = accountinfoDao.uniqueCheck(bo);
+        if (result > 0) {
+            return false;
+        }
+        return true;
     }
 }
