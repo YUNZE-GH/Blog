@@ -2,7 +2,7 @@ package com.gh.blog.controller;
 
 import com.gh.blog.entity.AccountInfo;
 import com.gh.blog.service.AccountInfoService;
-import com.gh.blog.utils.ImageCode;
+import com.gh.blog.utils.GenerateImageCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -110,7 +110,7 @@ public class AccountInfoController {
     @GetMapping(value = "/generateImageCode")
     public void generateImageCode(HttpServletResponse response, HttpServletRequest request) throws IOException {
         BufferedImage verifyImg = new BufferedImage(100, 30, BufferedImage.TYPE_INT_BGR);
-        String randomText = ImageCode.drawRandowmText(100, 30, verifyImg);
+        String randomText = GenerateImageCode.drawRandowmText(100, 30, verifyImg);
         // 验证码存session或redis
         HttpSession session = request.getSession();
         session.setAttribute("imageCode", randomText);
