@@ -2,6 +2,7 @@ package com.gh.blog.entity;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class AccountInfo implements Serializable {
 
@@ -168,5 +169,31 @@ public class AccountInfo implements Serializable {
                 .append(canceltime).append('\"');
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountInfo that = (AccountInfo) o;
+        return id == that.id &&
+                lockflag == that.lockflag &&
+                failurenum == that.failurenum &&
+                accountState == that.accountState &&
+                Objects.equals(oid, that.oid) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(phone, that.phone) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(createtime, that.createtime) &&
+                Objects.equals(updatetime, that.updatetime) &&
+                Objects.equals(finallytime, that.finallytime) &&
+                Objects.equals(canceltime, that.canceltime);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, oid, username, phone, password, email, lockflag, failurenum, createtime, updatetime, finallytime, accountState, canceltime);
     }
 }
