@@ -2,6 +2,7 @@ package com.gh.blog.controller;
 
 import com.gh.blog.entity.AccountInfo;
 import com.gh.blog.service.AccountInfoService;
+import com.gh.blog.utils.ImageCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,7 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * @author gaohan
@@ -23,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping(value = "account",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "account", tags = "AccountinfoController", description = "账号管理模块接口")
-public class AccountinfoController {
+public class AccountInfoController {
 
     private Log log = LogFactory.getLog(this.getClass().getName());
 
@@ -96,6 +103,22 @@ public class AccountinfoController {
     public String getSid(@RequestBody JSONObject json){
         String result = service.registerCheck(json);
         return result;
+    }
+
+
+    @ApiOperation(value = "generateImageCode",notes = "随机生成图片验证码")
+    @GetMapping(value = "/generateImageCode")
+    public void generateImageCode(HttpServletResponse response, HttpServletRequest request) throws IOException {
+        BufferedImage verifyImg = new BufferedImage(100, 30, BufferedImage.TYPE_INT_BGR);
+        String randomText = ImageCode.drawRandowmText(100, 30, verifyImg);
+        // 验证码存session或redis
+        HttpSession session = request.getSession();
+        session.setAttribute("imageCode", randomText);
+        response.setContentType("image/png");
+        OutputStream os = response.getOutputStream();
+        ImageIO.write(verifyImg, "png", os);
+        os.flush();
+        os.close();
     }
 
 }
