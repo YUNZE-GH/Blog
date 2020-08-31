@@ -38,31 +38,7 @@ public class AccountInfoController {
     private AccountInfoService service;
 
     /**
-     * 使用SessionId查询单条账号信息信息
-     * @param sid
-     * @return
-     */
-    @ApiOperation(value = "getAccountInfoBySid",notes = "使用SessionId查询单条账号信息信息")
-    @ApiImplicitParam(name = "sid", value = "SessionId", required = true,paramType = "path", dataType = "String")
-    @GetMapping(value = "/getAccountInfoBySid/{sid}")
-    public String getAccountInfoBySid(@PathVariable(required = true) String sid) {
-        AccountInfo bo = service.getOne(sid);
-        JSONObject json = new JSONObject();
-        json.put("status", "200");
-        if (bo == null) {
-            json.put("success", false);
-            json.put("message", "账号已过期，请重新登录！");
-            return json.toString();
-        } else {
-            json.put("success", true);
-            json.put("message", "查询成功！");
-            json.put("data", bo);
-            return json.toString();
-        }
-    }
-
-    /**
-     * 使用手机号和密码登录校验
+     * 登录校验
      * @param phone
      * @param password
      * @return
@@ -75,23 +51,9 @@ public class AccountInfoController {
     @GetMapping(value = "/loginCheck/{phone}/{password}")
     public String loginCheck(
             @PathVariable(required = true) String phone,
-            @PathVariable(required = true) String password,
-            HttpServletRequest request) {
-        String uuid = service.getOne(phone, password);
-        JSONObject json = new JSONObject();
-        json.put("status", "200");
-        if (uuid == null || uuid.isEmpty()) {
-            json.put("success", false);
-            json.put("message", "手机号或密码错误！");
-            return json.toString();
-        } else {
-            json.put("success", true);
-            json.put("message", "登录校验成功！");
-            json.put("sid", uuid);
-            request.getSession().setAttribute("sid", uuid);
-            log.error(json.toString());
-            return json.toString();
-        }
+            @PathVariable(required = true) String password) {
+        String json = service.getOne(phone, password);
+        return json;
     }
 
     @ApiOperation(value = "RegisterCheck",notes = "使用手机号和验证码进行校验及账号注册")
@@ -121,4 +83,28 @@ public class AccountInfoController {
         os.close();
     }
 
+
+    /**
+     * 使用SessionId查询单条账号信息信息
+     * @param sid
+     * @return
+     */
+    @ApiOperation(value = "getAccountInfoBySid",notes = "使用SessionId查询单条账号信息信息")
+    @ApiImplicitParam(name = "sid", value = "SessionId", required = true,paramType = "path", dataType = "String")
+    @GetMapping(value = "/getAccountInfoBySid/{sid}")
+    public String getAccountInfoBySid(@PathVariable(required = true) String sid) {
+        AccountInfo bo = service.getOne(sid);
+        JSONObject json = new JSONObject();
+        json.put("status", "200");
+        if (bo == null) {
+            json.put("success", false);
+            json.put("message", "账号已过期，请重新登录！");
+            return json.toString();
+        } else {
+            json.put("success", true);
+            json.put("message", "查询成功！");
+            json.put("data", bo);
+            return json.toString();
+        }
+    }
 }

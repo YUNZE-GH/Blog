@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author gaohan
@@ -57,16 +58,24 @@ public class AccountInfoImpl implements AccountInfoService {
     @Override
     public String getOne(String phone, String password) {
         AccountInfo bo = dao.getOne(phone);
-        if (StringUtils.isEmpty(bo.getId()) && StringUtils.isEmpty(password)) {
-            return null;
+        JSONObject json = new JSONObject();
+        json.put("status", "200");
+        if (bo == null || StringUtils.isEmpty(bo.getId()) || StringUtils.isEmpty(password)) {
+            json.put("success", false);
+            json.put("message", "手机号或密码错误！");
         } else if (bo.getPassword().equals(password)) {
             bo.setPassword(null);
             String uuid = UUID.randomUUID().toString();
-            redisTemplate.opsForValue().set(uuid, JSONObject.fromObject(bo).toString());
-            return uuid;
+            // 账号登录信息1小时后过期 60 * 60
+            redisTemplate.opsForValue().set(uuid, JSONObject.fromObject(bo).toString(), 60 , TimeUnit.SECONDS);
+            json.put("success", true);
+            json.put("message", "登录校验成功！");
+            json.put("sid", uuid);
         } else {
-            return null;
+            json.put("success", false);
+            json.put("message", "展缓信息已过期，请重新登录！");
         }
+        return json.toString();
     }
 
     @Override

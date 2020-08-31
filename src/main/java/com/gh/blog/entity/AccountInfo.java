@@ -19,6 +19,7 @@ public class AccountInfo implements Serializable {
     private String finallytime;
     private long accountState;
     private String canceltime;
+    private String headimag;
 
 
     public long getId() {
@@ -138,6 +139,14 @@ public class AccountInfo implements Serializable {
         this.canceltime = canceltime;
     }
 
+    public String getHeadimag() {
+        return headimag;
+    }
+
+    public void setHeadimag(String headimag) {
+        this.headimag = headimag;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -167,6 +176,8 @@ public class AccountInfo implements Serializable {
                 .append(accountState);
         sb.append(",\"canceltime\":\"")
                 .append(canceltime).append('\"');
+        sb.append(",\"headimag\":\"")
+                .append(headimag).append('\"');
         sb.append('}');
         return sb.toString();
     }
@@ -188,12 +199,13 @@ public class AccountInfo implements Serializable {
                 Objects.equals(createtime, that.createtime) &&
                 Objects.equals(updatetime, that.updatetime) &&
                 Objects.equals(finallytime, that.finallytime) &&
-                Objects.equals(canceltime, that.canceltime);
+                Objects.equals(canceltime, that.canceltime) &&
+                Objects.equals(headimag, that.headimag);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, oid, username, phone, password, email, lockflag, failurenum, createtime, updatetime, finallytime, accountState, canceltime);
+        return Objects.hash(id, oid, username, phone, password, email, lockflag, failurenum, createtime, updatetime, finallytime, accountState, canceltime, headimag);
     }
 }
