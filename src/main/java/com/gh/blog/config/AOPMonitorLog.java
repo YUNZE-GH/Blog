@@ -9,12 +9,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
@@ -28,13 +22,14 @@ public class AOPMonitorLog {
     private Log log = LogFactory.getLog(this.getClass().getName());
     /**
      * 切入点
-     * 匹配com.example.controller1包及其子包下的所有类的所有方法
+     * 匹配com.gh.blog.controller包及其子包下的所有类的所有方法
      */
     @Pointcut("execution(public * com.gh.blog.controller..*.*(..))")
     public void executePackage() {
 
     }
-        // 在切入点的方法run之前要干的
+
+    // 在切入点的方法run之前要干的
     @Before("executePackage()")
     public void before(JoinPoint joinPoint){
         Signature signature = joinPoint.getSignature();
