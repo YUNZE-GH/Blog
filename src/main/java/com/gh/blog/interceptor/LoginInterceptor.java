@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.err.println("================>");
-        return false;
+        System.err.println("================>拦截器");
+        return true;
     }
 }
