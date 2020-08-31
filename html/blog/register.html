@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+
+	<!-- Head -->
+	<head>
+		<title>注册表单</title>
+
+		<!-- Meta-Tags -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="application/x-javascript">
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+		<!-- //Meta-Tags -->
+
+		<!-- Style -->
+		<link rel="stylesheet" href="../layui/css/layui.css">
+		<script type="text/javascript" src="../layui/layui.js"></script>
+		<script type="text/javascript" src="./js/jquery-1.8.3.js"></script>
+		<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+		<script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.button {
+				background-color: #000;
+				border: 1px solid #FFF;
+				color: #FFF;
+				/* background: #409eff; */
+				cursor: pointer;
+				border: 1px solid #dcdfe6;
+				border-color: #dcdfe6;
+				text-align: center;
+				font-weight: 500;
+				padding: 7px 20px;
+				font-size: 14px;
+				border-radius: 4px;
+			
+				&:focus {
+					outline: none;
+				}
+			}
+			
+			.disabled {
+				background-color: #ddd;
+				border-color: #ddd;
+				color: #57a3f3;
+				cursor: not-allowed;
+			}
+		</style>
+	</head>
+	<!-- //Head -->
+
+	<!-- Body -->
+	<body>
+		<h1>GH-我的博客</h1>
+		<div class="container w3layouts agileits">
+			<div class="register w3layouts agileits" id="register">
+				<h2>注 册</h2>
+				<form action="#" method="post">
+					<input type="text" id="username" v-model="username" Name="username" placeholder="用户名" required="">
+					<input type="text" id="phone" v-model="phone" Name="Phone" placeholder="手机号码" required="">
+					<!-- <a href="#" style="float: right;color: #007DDB" @click="">获取验证码<span>{{second}}</span></a> -->
+					
+					<input type="text" v-model="imageCode" placeholder="图片验证码">
+					<div style="float: left;">
+						<img v-bind:src="imgCodeSrc" id="imgObj" alt="图片验证码" @click="changeImageClick" />
+						<!-- <a href="#" id="changeImage" @click="changeImageClick" style="color: blue;">换一张</a> -->
+					</div>
+					<div style="float: right;">
+						<input type="button" class="button" :class="{disabled: !this.canClick}" v-model="content" @click="countDown"/>
+					</div>
+					<input type="text" id = "code" v-model="code" Name="code" placeholder="手机验证码" required="">
+					<input type="password" id = "password" v-model="password" Name="Password" placeholder="密码" required="">
+					<input type="password" id = "password_confirm" v-model="password_confirm" Name="judgePassword" placeholder="确认密码" required="">
+					<!-- <input type="text" Name="Email" placeholder="邮箱" required=""> -->
+				</form>
+				<div class="send-button w3layouts agileits">
+					<!-- <form> -->
+						<input type="button" @click="registerClick" name="submit" value="免费注册">
+					<!-- </form> -->
+				</div>
+				<a href="login.html" style="float: right;color: #cccccc">返回登录</a>
+
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="footer w3layouts agileits">
+			<p>Copyright &copy; 2019-2020</p>
+			<a class="record_1" href="http://beian.miit.gov.cn/" target="_blank">鄂ICP备19029486号</a>
+		</div>
+	</body>
+	<!-- //Body -->
+	<!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> <!-- ip地址获取 --> -->
+	<script src="js/public.js"></script>
+	<script src="js/login/register.js"></script>
+</html>
