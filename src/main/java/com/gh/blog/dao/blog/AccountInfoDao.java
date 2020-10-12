@@ -19,4 +19,6 @@ public interface AccountInfoDao {
     void registerOneAccountInfo(AccountInfo bo);
 
     int uniqueCheck(AccountInfo bo);
+
+    void batchInsert(List<AccountInfo> list);
 }

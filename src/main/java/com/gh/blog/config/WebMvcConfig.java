@@ -45,7 +45,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         // addPathPatterns("/test/**").excludePathPatterns("/test/login", "/test/register") 表示拦截/test/ 下的所有路径请求，但不拦截 /test/login 和 /test/register
         List<String> list = new ArrayList<>();
         list.add("/account/**");
-        list.add("/test/**");
+//        list.add("/test/**");
         list.add("/sendMessage/**");
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns(list);
     }

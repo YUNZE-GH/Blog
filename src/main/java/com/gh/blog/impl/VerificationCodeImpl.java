@@ -80,8 +80,10 @@ public class VerificationCodeImpl implements VerificationCodeService {
             VerificationCode object = new VerificationCode();
             // 生成1-999999之间的随机数,进行6位数补全
             String verificationCode = String.format("%06d" ,(int) (Math.random() * 999999 + 1));
-            String message = smsSending.sendSMS(phone, registerSMSTemplate, verificationCode);
-            log.info("==========>信息回执：" + message);
+            // 发送验证码
+            // todo 暂时关闭手机验证码发送功能，验证码可从redis查询
+//            String message = smsSending.sendSMS(phone, registerSMSTemplate, verificationCode);
+            String message = "{\"Message\":\"OK\",\"RequestId\":\"5715C906-66EE-4E34-9E9D-DEA10B9BEC01\",\"BizId\":\"398701798878411077^0\",\"Code\":\"OK\"}";
             JSONObject result = JSONObject.fromObject(message);
             Object code = result.get("Code");
             if (publicUtils.isNotEmpty(code) && code.toString().equals("OK")) {
