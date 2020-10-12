@@ -37,9 +37,9 @@ var vm = new Vue({
 		/**
 		 * 更换一张图片验证码
 		 */
-		changeImageClick:function(){
+		changeImageClick: function() {
 			var imgSrc = $("#imgObj");
-			var src = imgSrc.attr("src");  
+			var src = imgSrc.attr("src");
 			imgSrc.attr("src", proxy_pass + "/account/generateImageCode?time=" + (new Date()).getTime());
 		}
 	}
@@ -50,9 +50,9 @@ function getCode() {
 	var phone = vm.$data.phone;
 	var imageCode = vm.$data.imageCode;
 	// 手机号不为空，格式正确，图片验证码不为空
-	if (!isEmpty(phone) && mobile_mode.test(phone) && !isEmpty(imageCode)){
+	if (!isEmpty(phone) && mobile_mode.test(phone) && !isEmpty(imageCode)) {
 		var flag = sendSmsCode();
-		if (flag) {
+		if(flag) {
 			if (!vm.$data.canClick) {
 				return;
 			}
@@ -84,6 +84,7 @@ function getCode() {
  * 获取验证码
  */
 function sendSmsCode() {
+	var flag = false;
 	$.ajax({
 		url: proxy_pass + "/sendMessage/sendSmsMessage",
 		data: {
@@ -99,11 +100,13 @@ function sendSmsCode() {
 				layer.msg(data.message, {
 					icon: 0
 				});
-				return false;
+				flag = false;
+			} else {
+				flag = true;
 			}
-			return true;
 		}
 	});
+	return flag;
 }
 
 /**
@@ -164,6 +167,5 @@ function accountRegister(username, phone, password, code) {
 				window.location.href = "login.html";
 			}
 		}
-
 	});
 }

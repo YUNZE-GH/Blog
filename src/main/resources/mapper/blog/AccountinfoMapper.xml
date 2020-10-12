@@ -20,4 +20,13 @@
             and PHONE = #{phone}
         </if>
     </select>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into accountinfo (OID, USERNAME, PHONE, PASSWORD, LOCKFLAG, FAILURENUM, CREATETIME, UPDATETIME, ACCOUNT_STATE)
+        values
+        <foreach collection="list" item="a" separator=",">
+            (#{a.oid}, #{a.username}, #{a.phone}, #{a.password}, 0, 0, #{a.createtime}, #{a.updatetime}, 0)
+        </foreach>
+
+    </insert>
 </mapper>
